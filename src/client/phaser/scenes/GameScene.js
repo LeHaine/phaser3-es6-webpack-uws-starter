@@ -1,5 +1,4 @@
 import Phaser from "phaser";
-import io from "socket.io-client";
 
 class GameScene extends Phaser.Scene {
     constructor() {
@@ -11,8 +10,10 @@ class GameScene extends Phaser.Scene {
     preload() {}
 
     create() {
-        this.socket = io("http://localhost:8080");
-        this.socket.on("connect", () => {});
+        this.ws = new WebSocket("ws://localhost:9001");
+        this.ws.onopen = e => {
+            this.ws.send("connected");
+        };
     }
 
     update(time, delta) {}
