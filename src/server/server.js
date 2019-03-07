@@ -40,6 +40,14 @@ uWS.App({
         }
     });
 
-function ab2str(buf) {
-    return String.fromCharCode.apply(null, new Uint8Array(buf));
+function ab2str(buf, encoding = "utf8") {
+    return Buffer.from(buf).toString(encoding);
+}
+
+function str2ab(str) {
+    const array = new Uint8Array(str.length);
+    for (let i = 0; i < str.length; i++) {
+        array[i] = str.charCodeAt(i);
+    }
+    return array.buffer;
 }
